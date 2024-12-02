@@ -1,0 +1,31 @@
+<div class="todo-container">
+  <header>
+    <h1>Minha Lista de Tarefas</h1>
+    <div class="task-input">
+      <input [(ngModel)]="newTask" placeholder="Digite uma nova tarefa..." />
+      <button (click)="addTask()">Adicionar</button>
+    </div>
+  </header>
+
+  <main>
+    <ul class="task-list">
+      <li *ngFor="let todo of todos" [class.completed]="todo.completed">
+        <span *ngIf="!editMode || taskToEdit?.id !== todo.id">
+          <span (click)="toggleComplete(todo)">{{ todo.title }}</span>
+          <div class="actions">
+            <button (click)="editTask(todo)">✏️</button>
+            <button (click)="deleteTask(todo.id)">❌</button>
+          </div>
+        </span>
+
+        <span *ngIf="taskToEdit?.id === todo.id" class="task-edit">
+          <input [(ngModel)]="taskToEdit!.title" class="edit-input" />
+          <div class="edit-actions">
+            <button (click)="saveEdit()" class="save-btn" >💾</button>
+            <button (click)="cancelEdit()" class="cancel-btn">❌</button>
+          </div>
+        </span>
+      </li>
+    </ul>
+  </main>
+</div>
